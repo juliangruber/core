@@ -1,6 +1,8 @@
 FROM node:20
 LABEL org.opencontainers.image.source https://github.com/filecoin-station/core
-RUN apt-get update && apt-get install -y libsecret-1-dev
+RUN apt-get update && apt-get install -y libsecret-1-dev dbus-x11 gnome-keyring
+RUN dbus-launch --sh-syntax
+RUN echo '' | /usr/bin/gnome-keyring-daemon --unlock
 USER node
 WORKDIR /usr/src/app
 COPY . .
