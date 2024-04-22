@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: sudo apt-get install xvfb gnome-keyring
+      - run: sudo apt-get install xvfb
         if: ${{ startsWith(matrix.os, 'ubuntu-') }}
       - uses: t1m0thyj/unlock-keyring@v1
         if: ${{ startsWith(matrix.os, 'ubuntu-') }}
