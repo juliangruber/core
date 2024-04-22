@@ -34,8 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - name: Setup libsecret for node-keytar
-        run: sudo apt install gnome-keyring
+      - uses: t1m0thyj/unlock-keyring@v1
       - run: npm ci
       - run: npm run test:unit
         env:
@@ -68,8 +67,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Setup libsecret for node-keytar
-        run: sudo apt install gnome-keyring
+      - uses: t1m0thyj/unlock-keyring@v1
 
       - name: Build and load Docker image
         id: docker_build
