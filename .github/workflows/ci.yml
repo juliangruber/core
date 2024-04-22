@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: sudo apt-get install xvfb
+      - run: sudo apt-get install xvfb gnome-keyring
         if: ${{ startsWith(matrix.os, 'ubuntu-') }}
       - run: npm ci --omit=dev
       - run: npm ci
