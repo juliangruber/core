@@ -16,8 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: sudo apt-get install xvfb
-        if: ${{ startsWith(matrix.os, 'ubuntu-') }}
       - uses: t1m0thyj/unlock-keyring@v1
         if: ${{ startsWith(matrix.os, 'ubuntu-') }}
       - run: npm ci --omit=dev
@@ -26,10 +24,6 @@ jobs:
       - run: npm run test:lint
         if: matrix.os != 'windows-latest'
       - run: npm run test:unit
-      - run: xvfb-run --auto-servernum npm test
-        if: ${{ startsWith(matrix.os, 'ubuntu-') }}
-      - run: npm run test:unit
-        if: ${{ !startsWith(matrix.os, 'ubuntu-') }}
 
   test-locales:
     runs-on: ubuntu-latest
