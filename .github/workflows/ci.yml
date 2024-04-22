@@ -67,8 +67,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - uses: t1m0thyj/unlock-keyring@v1
-
       - name: Build and load Docker image
         id: docker_build
         uses: docker/build-push-action@v5
