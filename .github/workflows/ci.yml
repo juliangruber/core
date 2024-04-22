@@ -18,17 +18,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Setup libsecret for node-keytar
-        run: |
-          sudo apt install gnome-keyring
-          sudo dbus-launch /usr/bin/gnome-keyring-daemon --unlock
-        if: startsWith(matrix.os, 'ubuntu-')
+      - run: sudo apt-get install xvfb
+        if: ${{ startsWith(matrix.os, 'ubuntu-') }}
       - run: npm ci --omit=dev
       - run: npm ci
       - run: npm run test:types
       - run: npm run test:lint
         if: matrix.os != 'windows-latest'
       - run: npm run test:unit
+      - run: xvfb-run --auto-servernum npm test
+        if: ${{ startsWith(matrix.os, 'ubuntu-') }}
+      - run: npm run test:unit
+        if: ${{ !startsWith(matrix.os, 'ubuntu-') }}
 
   test-locales:
     runs-on: ubuntu-latest
